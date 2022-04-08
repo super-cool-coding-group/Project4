@@ -1,23 +1,51 @@
 package src;
 
-public class ResizeableArrayDriver{
+/**
+ * This is the ResizeableListDriver class that tests basic functionality of the ResizeableList class.
+ *
+ * These functionalities include adding, removing, swapping, setting, getting, capacity management, and numOfEntries management.
+ *
+ * The class only has one method: a main method.
+ *
+ * @author George Matta
+ * @version 2.0
+ */
+public class ResizeableListDriver{
 
+    /**
+     * Demos typical usage of a ResizeableList object.
+     *
+     * We test different constructors with different capacities, test different additions at various indicies,
+     * clear the list, add more to the list, remove from the list, etc.
+     *
+     * @param args The basic String[] args for any main method in Java.
+     */
     public static void main(String[] args){
 
-        // ResizeableArray<String> negArr = new ResizeableArray<>(-1);
+        // ResizeableList<String> negArr = new ResizeableList<>(-1);
 
-        // ResizeableArray<String> emptArr = new ResizeableArray<>(0);
+        // ResizeableList<String> emptArr = new ResizeableList<>(0);
 
-        ResizeableArray<String> oneArr = new ResizeableArray<>(1);
+        ResizeableList<String> oneArr = new ResizeableList<>(1);
         System.out.println(oneArr);
 
-        // ResizeableArray<String> defArr = new ResizeableArray<>();
+        // ResizeableList<String> defArr = new ResizeableList<>();
         // System.out.println(defArr);
 
-        ResizeableArray<String> maxArr = new ResizeableArray<>(10_000);
+        ResizeableList<String> maxArr = new ResizeableList<>(10_000);
         System.out.println(maxArr);
 
-        //ResizeableArray<String> moreMaxArr = new ResizeableArray<>(10_001);
+        //ResizeableList<String> moreMaxArr = new ResizeableList<>(10_001);
+
+        oneArr.add("1");
+        oneArr.add("2");
+        oneArr.add("3");
+        System.out.println(oneArr);
+        oneArr.add(1, "4");
+        System.out.println(oneArr);
+        System.out.println(oneArr.remove(1));
+
+        oneArr.clear();
 
         oneArr.add("1");
         System.out.println(oneArr);

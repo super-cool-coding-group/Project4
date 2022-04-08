@@ -10,7 +10,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     //#region Private Fields
 
-    private ResizeableArray<T> heap;
+    private ResizeableList<T> heap;
     private int lastIndex;
     private boolean initialized;
 
@@ -26,7 +26,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         if (initialCapacity < DEFAULT_CAPACITY)
             initialCapacity = DEFAULT_CAPACITY;
 
-        heap = new ResizeableArray(initialCapacity);
+        heap = new ResizeableList(initialCapacity);
         lastIndex = 0;
         initialized = true;
     }
