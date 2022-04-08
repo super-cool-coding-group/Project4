@@ -1,10 +1,10 @@
 package src;
 
 /**
- * This is the ArrayInterface array which we later implement to create a ResizeableArray.
+ * This is the ListInterface interface which we later implement to create a ResizeableList.
  *
  * This interface contains definitions for various methods that are integral for the existence
- * of any array (resizeable or not).
+ * of any list (resizeable or not).
  *
  * These methods allow for functionalities such as adding, removing, swapping, setting/getting elements, counting elements, clearing,
  * and many checkers (such as contains, isEmpty, isFull).
@@ -93,7 +93,7 @@ public interface ListInterface<T> {
      * Checks if an element is in the list.
      *
      * @param entry The entry we want to check the existence of.
-     * @return true if the element is in the array, false if it isn't.
+     * @return true if the element is in the list, false if it isn't.
      */
     public boolean contains(T entry);
 
