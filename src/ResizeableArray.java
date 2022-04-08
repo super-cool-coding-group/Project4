@@ -39,7 +39,7 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
      */
     private void checkCapacity(int capacity){
         String errorMessage = "Attempted to create a bag with a capacity (" + capacity + ") which is too ";
-        if (capacity >= MAX_CAPACITY){
+        if (capacity > MAX_CAPACITY){
             errorMessage += "large";
             throw new IllegalStateException(errorMessage);
         }
@@ -50,11 +50,11 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
     }
 
     /**
-     * A method to check if the number of entries is larger than the maximum capacity
-     * If so, we double the capacity
+     * A method to continuously double the capacity if a provided index is larger than capacity
+     * @param index The index we are checking if it is too large
      */
-    private void ensureCapacity(){
-        if(isFull()){
+    private void ensureCapacity(int index){
+        while(index > array.length){
             doubleCapacity();
         }
     }
@@ -75,10 +75,7 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
      * @return The array with the copied entries
      */
     private T[] copyEntries(T[] newArray){
-        for(int i = 1; i <= numOfEntries; i++){
-            if(newArray[i] == null){
-                continue;
-            }
+        for(int i = 0; i < numOfEntries; i++){
             newArray[i] = array[i];
         }
         return newArray;
@@ -105,16 +102,15 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
     @Override
     public void add(int index, T entry) {
         checkIntegrity();
+        ensureCapacity(index);
 
-        if(index != numOfEntries + 1){
-            checkIndexInRange(index);
-            moveEntriesForward(index);
+        if(index <= numOfEntries){
+            moveEntriesForward(index + 1);
         }
 
-        array[index] = entry;
+        array[index - 1] = entry;
 
-        numOfEntries++;
-        ensureCapacity();
+        numOfEntries += index - numOfEntries;
     }
 
     @Override
@@ -129,7 +125,11 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
 
         T removed = moveEntriesBack(index);
 
+        // We are definitely removing one entry
         numOfEntries--;
+        // We also remove an entry for every trailing null
+        for( ; array[numOfEntries - 1] == null; numOfEntries--);
+
         return removed;
     }
 
@@ -150,8 +150,9 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
 
     // adds a null at index and moves everything forward
     private void moveEntriesForward(int index){
-        ensureCapacity();
-        for(int i = numOfEntries; i >= index; i--){
+        ensureCapacity(index);
+        for(int i = numOfEntries; i > index; i--){
+            System.out.println(this);
             array[i + 1] = array[i];
         }
     }
@@ -161,8 +162,8 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
         checkIntegrity();
         checkIndexInRange(index);
 
-        T removed = array[index];
-        array[index] = entry;
+        T removed = array[index - 1];
+        array[index - 1] = entry;
 
         return removed;
     }
@@ -172,7 +173,7 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
         checkIntegrity();
         checkIndexInRange(index);
 
-        return array[index];
+        return array[index - 1];
     }
 
     @Override
@@ -181,9 +182,9 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
         checkIndexInRange(firstIndex);
         checkIndexInRange(secondIndex);
 
-        T tempEntry = array[firstIndex];
-        array[firstIndex] = array[secondIndex];
-        array[secondIndex] = tempEntry;
+        T tempEntry = array[firstIndex - 1];
+        array[firstIndex - 1] = array[secondIndex - 1];
+        array[secondIndex - 1] = tempEntry;
     }
 
     @Override
@@ -192,7 +193,11 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
 
         int count = 0;
         // Loop through the array
-        for(int i = 1; i <= numOfEntries; i++){
+        for(int i = 0; i < numOfEntries; i++){
+            // If we are at a null entry, skip it
+            if(array[i] == null){
+                continue;
+            }
             // If we found the element
             if(array[i].equals(entry)){
                 // Increase the count
@@ -216,7 +221,7 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
     public int getIndexOf(T entry) {
 
         // Loop through the array
-        for(int i = 1; i <= numOfEntries; i++){
+        for(int i = 0; i < numOfEntries; i++){
             // If we find the element
             if(array[i].equals(entry)){
                 // Return the indes
@@ -248,7 +253,7 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
 
     @Override
     public boolean isFull() {
-        return numOfEntries >= array.length;
+        return numOfEntries >= array.length - 1;
     }
 
     @Override
@@ -270,12 +275,17 @@ public class ResizeableArray<T> implements ArrayInterface<T> {
         checkIntegrity();
 
         String output = "[";
-        for(int i = 1; i < numOfEntries; i++){
+        for(int i = 0; i < numOfEntries - 1; i++){
             output += array[i] + ", ";
         }
 
-        output += array[numOfEntries] + "]";
+        if(numOfEntries != 0){
+            output += array[numOfEntries - 1];
+        }
+        output += "]";
+
         output += "\nCapacity: " + array.length;
+        output += "\nNumEntries: " + numOfEntries;
 
         return output;
     }
