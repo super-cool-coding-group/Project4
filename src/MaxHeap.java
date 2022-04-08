@@ -1,7 +1,5 @@
 package src;
 
-import org.junit.platform.engine.support.hierarchical.DefaultParallelExecutionConfigurationStrategy;
-
 public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInterface<T> {
 
     //#region Const
