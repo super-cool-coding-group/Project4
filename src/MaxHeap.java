@@ -11,7 +11,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     //#region Private Fields
 
     private ResizeableList<T> heap;
-    private int lastIndex;
     private boolean initialized = false;
 
     //#endregion
@@ -27,7 +26,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             initialCapacity = DEFAULT_CAPACITY;
 
         heap = new ResizeableList<T>(initialCapacity);
-        lastIndex = 0;
         initialized = true;
     }
 
@@ -56,7 +54,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         boolean parentCheck = true;
         boolean childCheck = true;
         if(parentIndex != -1){
-            System.out.println("Parent " + parentIndex );
             parentCheck = heap.get(parentIndex).compareTo(entry) >= 0;
         }
 
@@ -91,7 +88,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
         int childIndex = parentIndex * 2;
 
-        if(childIndex >= lastIndex){
+        if(childIndex >= heap.getNumEntries()){
             return -1;
         }
 
@@ -100,7 +97,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     @Override
     public void add(T newEntry){
-        add(lastIndex + 1, newEntry);
+        add(heap.getNumEntries() + 1, newEntry);
     }
 
     @Override
@@ -109,7 +106,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
         if(canAdd(index, newEntry)){
             heap.add(index, newEntry);
-            lastIndex++;
         }
 
     }
@@ -123,7 +119,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     @Override
     public int getSize(){
         checkInitialization();
-        return lastIndex;
+        return heap.getNumEntries();
     }
 
     @Override
