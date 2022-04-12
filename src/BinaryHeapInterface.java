@@ -26,13 +26,13 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
      */
     public void add(T entry);
 
-    /**
-     * Adds an entry to the Heap given an index
-     *
-     * @param entry The entry we want to add to the Heap
-     * @param index The index we want to add the entry to
-     */
-    public void add(int index, T entry);
+    // /**
+    //  * Adds an entry to the Heap given an index
+    //  *
+    //  * @param entry The entry we want to add to the Heap
+    //  * @param index The index we want to add the entry to
+    //  */
+    // public void add(int index, T entry);
 
     /**
      * Checks if we can add an entry to a given index.

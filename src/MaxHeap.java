@@ -48,23 +48,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     public boolean canAdd(int index, T entry){
         checkInitialization();
 
-        int parentIndex = getParentIndex(index);
-        int childIndex = getChildIndex(index);
-
-        boolean parentCheck = true;
-        boolean childCheck = true;
-        if(parentIndex != -1){
-            parentCheck = heap.get(parentIndex).compareTo(entry) >= 0;
-        }
-
-        if(childIndex != -1){
-            if(childIndex < heap.getNumEntries())
-                childCheck = heap.get(childIndex).compareTo(entry) <= 0;
-            if (childIndex+1 < heap.getNumEntries())
-                childCheck = childCheck && heap.get(childIndex + 1).compareTo(entry) <= 0;
-        }
-
-        return parentCheck && childCheck;
+        return entry.compareTo(heap.get(index)) > 0;
     }
 
     @Override
@@ -97,15 +81,22 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     @Override
     public void add(T newEntry){
-        add(heap.getNumEntries() + 1, newEntry);
-    }
-
-    @Override
-    public void add(int index, T newEntry){
         checkInitialization();
 
-        if(canAdd(index, newEntry)){
-            heap.add(index, newEntry);
+        // Add the entry to the last index
+        heap.add(newEntry);
+
+        // Set up indices for the current entry and the parent entry
+        int entryIndex = heap.getNumEntries();
+        int parentIndex = getParentIndex(entryIndex);
+
+        // If the parent is less than the entry
+        while(parentIndex > 0 && canAdd(parentIndex, newEntry)){
+            // Swap the entries
+            heap.swap(entryIndex, parentIndex);
+            // Recalculate the indices
+            entryIndex = parentIndex;
+            parentIndex = getParentIndex(entryIndex);
         }
 
     }

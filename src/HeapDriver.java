@@ -17,5 +17,8 @@ public class HeapDriver {
 
         System.out.println(h);
 
+        h.add(85);
+        System.out.println(h);
+
     }
 }
