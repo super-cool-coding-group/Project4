@@ -5,7 +5,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     //#region Const
 
     private static final int DEFAULT_CAPACITY = 25;
-    private static final int MAX_CAPACITY = 10_000;
 
     //#endregion
 
@@ -50,8 +49,25 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     @Override
     public boolean canAdd(int index, T entry){
         checkInitialization();
-        // TODO Auto-generated method stub
-        return false;
+
+        int parentIndex = getParentIndex(index);
+        int childIndex = getChildIndex(index);
+
+        boolean parentCheck = true;
+        boolean childCheck = true;
+        if(parentIndex != -1){
+            System.out.println("Parent " + parentIndex );
+            parentCheck = heap.get(parentIndex).compareTo(entry) >= 0;
+        }
+
+        if(childIndex != -1){
+            if(childIndex < heap.getNumEntries())
+                childCheck = heap.get(childIndex).compareTo(entry) <= 0;
+            if (childIndex+1 < heap.getNumEntries())
+                childCheck = childCheck && heap.get(childIndex + 1).compareTo(entry) <= 0;
+        }
+
+        return parentCheck && childCheck;
     }
 
     @Override
@@ -62,8 +78,8 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             childIndex--;
         }
 
-        if (childIndex == 1){
-            throw new NoParentException("The node at index " + childIndex + " does not have a parent.");
+        if (childIndex <= 1){
+            return -1;
         }
 
         return childIndex/2;
@@ -75,8 +91,8 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
         int childIndex = parentIndex * 2;
 
-        if(childIndex > lastIndex){
-            throw new NoParentException("The node at index " + parentIndex + " does not have a child.");
+        if(childIndex >= lastIndex){
+            return -1;
         }
 
         return childIndex;
@@ -84,8 +100,18 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     @Override
     public void add(T newEntry){
+        add(lastIndex + 1, newEntry);
+    }
+
+    @Override
+    public void add(int index, T newEntry){
         checkInitialization();
-        // TODO Auto-generated method stub
+
+        if(canAdd(index, newEntry)){
+            heap.add(index, newEntry);
+            lastIndex++;
+        }
+
     }
 
     @Override
@@ -106,17 +132,10 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         heap.clear();
     }
 
-    // @Override
-    // public T removeRoot() {
-    //     // TODO Auto-generated method stub
-    //     return null;
-    // }
-
-    // @Override
-    // public T getRoot() {
-    //     // TODO Auto-generated method stub
-    //     return null;
-    // }
+    @Override
+    public String toString(){
+        return heap.toString();
+    }
 
     //#endregion
 }
