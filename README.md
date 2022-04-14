@@ -3,11 +3,11 @@ Implementations and demonstrations of Heaps in Java.
 
 ## Names and Contributions
 - George Matta
-  - A
+  - Created and implemented the ListInterface and ResizeableList (as well as the ResizeableListDriver). Created the first version of the BinaryHeapInterface. Implemented the methods for the MaxHeap (add, constructors, other auxillery methods). Implemented the non-optimal method of building a MaxHeap.
 - Pierlorenzo Peruzzo
-  - B
+  - Contributed to the creation of the BinaryHeapInteface and the MaxHeap file. WILL IMPLEMENT OPTIMAL METHOD.
 - Angelica Arteaga
-  - C
+  - WILL IMPLEMENT REMOVE. WILL IMPLEMENT GETTING AN INT[] FROM INPUT FILE.
 
 ## Extra Features
 - Super cool code courtesy of the Super Cool Coding Group
