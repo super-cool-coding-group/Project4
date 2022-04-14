@@ -31,6 +31,30 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     //#endregion
 
+    //#region Building Heap (Project 4)
+    public MaxHeap(int[] items){
+        // Default to the non-optimal method
+        this(items, false);
+    }
+
+    @SuppressWarnings("unchecked")
+    public MaxHeap(int[] items, boolean optimal){
+        this();
+
+        // If we want the non-optimal method
+        if(!optimal){
+            for(Integer item : items){
+                this.add((T) item);
+            }
+
+            return;
+        }
+
+        // If we want the optimal method:
+
+    }
+    //#endregion
+
     //#region Security Check
 
     private void checkInitialization(){
