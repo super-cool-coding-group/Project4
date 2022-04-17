@@ -1,5 +1,9 @@
 package src;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInterface<T> {
 
     //#region Const
@@ -53,6 +57,31 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         // If we want the optimal method:
 
     }
+
+    // Initializes MaxHeap using data from text file (first 100 integers only)
+    public MaxHeap(String file) throws FileNotFoundException{
+        // Call other MaxHeap constructor
+        this(readFile(file));
+    }
+
+    private static int[] readFile(String file) throws FileNotFoundException{
+        File thisFile = new File(file);
+        Scanner inputFile = new Scanner(thisFile);
+
+        // Inputs file data into array
+        int[] fileArray = new int[100];
+        for(int i = 0; i < 100; i++){
+            fileArray[i] = inputFile.nextInt();
+        }
+        inputFile.close();
+
+        return fileArray;
+    }
+
+    public void createFile(){
+        
+    }
+
     //#endregion
 
     //#region Security Check
