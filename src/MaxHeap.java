@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInterface<T> {
@@ -9,13 +10,16 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     //#region Const
 
     private static final int DEFAULT_CAPACITY = 25;
+    //private static final int MAX_CAPACITY = 10000;
 
     //#endregion
 
     //#region Private Fields
 
     private ResizeableList<T> heap;
+    //private int lastIndex;
     private boolean initialized = false;
+    private int[] fileArray;
 
     //#endregion
 
@@ -64,23 +68,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         this(readFile(file));
     }
 
-    private static int[] readFile(String file) throws FileNotFoundException{
-        File thisFile = new File(file);
-        Scanner inputFile = new Scanner(thisFile);
-
-        // Inputs file data into array
-        int[] fileArray = new int[100];
-        for(int i = 0; i < 100; i++){
-            fileArray[i] = inputFile.nextInt();
-        }
-        inputFile.close();
-
-        return fileArray;
-    }
-
-    public void createFile(){
-        
-    }
 
     //#endregion
 
@@ -175,6 +162,96 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     @Override
     public String toString(){
         return heap.toString();
+    }
+
+    public T getRoot(){
+        checkInitialization();
+        T root = null;
+        if(!isEmpty())
+            root = heap.get(1);
+        return root;
+    }
+
+    public T getMax(){
+        checkInitialization();
+        T root = null;
+        if(!isEmpty())
+            root = heap.get(1);
+        return root;
+    }
+
+    // Removes and returns the heap's largest object
+    public T removeMax(){
+        checkInitialization();
+        T root = null;
+        if(!isEmpty()){
+            root = heap.get(1);
+            heap.set(1, heap.get(heap.getNumEntries()));
+            heap.remove(heap.getNumEntries());
+            reheap(1);
+        }
+        return root;
+    }
+
+    // Turns a semiheap into a heap
+    private void reheap(int rootIndex){
+        boolean done = false;
+        T orphan = heap.get(rootIndex);
+        int leftChildIndex = this.getChildIndex(1);
+        while(!done && (leftChildIndex <= heap.getNumEntries())){
+            int largerChildIndex = leftChildIndex;
+            int rightChildIndex = leftChildIndex + 1;
+            if( (rightChildIndex <= heap.getNumEntries()) && 
+                heap.get(rightChildIndex).compareTo(heap.get(largerChildIndex)) > 0){
+                largerChildIndex = rightChildIndex;
+            }
+
+            if(orphan.compareTo(heap.get(largerChildIndex)) < 0){
+                heap.set(rootIndex, heap.get(largerChildIndex));
+                rootIndex = largerChildIndex;
+                leftChildIndex = 2 * rootIndex;
+            }
+
+            else
+                done = true;
+        }
+        heap.set(rootIndex, orphan);
+    }
+
+
+    //#endregion
+
+    //#region Other methods
+
+    private static int[] readFile(String file) throws FileNotFoundException{
+        File thisFile = new File(file);
+        Scanner inputFile = new Scanner(thisFile);
+
+        // Inputs file data into array
+        int[] fileArray = new int[100];
+        for(int i = 1; i <= 100; i++){
+            fileArray[i] = inputFile.nextInt();
+        }
+        inputFile.close();
+
+        return fileArray;
+    }
+
+    public void writeFile() throws FileNotFoundException{
+        PrintWriter outputFile = new PrintWriter("data_sorted.txt");
+
+        for(int i = 0; i < 10; i++){
+            outputFile.println(fileArray);
+        } 
+
+        outputFile.close();
+
+    }
+
+    @Override
+    public ResizeableList<Integer> removeRoot() {
+        // TODO Auto-generated method stub
+        return null;
     }
 
     //#endregion
