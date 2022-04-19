@@ -369,6 +369,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             T temp = heap.get(i + 1);
             heap.set(i + 1, heap.get(largest + 1));
             heap.set(largest + 1, temp);
+            numSwaps++;
 
             // Now we recursively call heapify to change the affected sub-tree
             heapify(largest);
