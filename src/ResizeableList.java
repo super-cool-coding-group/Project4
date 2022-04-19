@@ -79,7 +79,7 @@ public class ResizeableList<T> implements ListInterface<T> {
 
     /**
      * Creates a generic-type array
-     * 
+     *
      * @param capacity The capacity we want the list to have
      * @return The array object of T generics
      */
@@ -90,7 +90,7 @@ public class ResizeableList<T> implements ListInterface<T> {
 
     /**
      * Throws an error if the capacity of the list is too large or too small.
-     * 
+     *
      * @throws IllegalArgumentException if the capacity is greater than the maximum
      *                                  or less than 1.
      * @param capacity The capacity we are checking.
@@ -113,7 +113,7 @@ public class ResizeableList<T> implements ListInterface<T> {
     /**
      * Continuously doubles the capacity while a provided index is larger than
      * capacity.
-     * 
+     *
      * @param index The index we are checking if it is too large.
      */
     private void ensureCapacity(int index) {
@@ -140,7 +140,7 @@ public class ResizeableList<T> implements ListInterface<T> {
 
     /**
      * Copies all the entries from this array into a new array
-     * 
+     *
      * @param newArray The array to copy the entries into
      * @return The array with the copied entries
      */
@@ -157,7 +157,7 @@ public class ResizeableList<T> implements ListInterface<T> {
     /**
      * Checks the integrity of the ResizeableList to make sure the constructor was
      * called.
-     * 
+     *
      * @throws SecurityException if the list object was corrupted in some way or the
      *                           constructor wasn't run properly.
      */
@@ -562,9 +562,29 @@ public class ResizeableList<T> implements ListInterface<T> {
         return output;
     }
 
+    /**
+     * Gets the total number of entries in this ResizeableList
+     * @return The numOfEntries instance field.
+     */
     @Override
     public int count() {
         return numOfEntries;
     }
 
+    /**
+     * Returns a preview of the first 10 items of the list
+     * @return The string preview of the list
+     */
+    public String preview(){
+        checkIntegrity();
+
+        String output = "[";
+        for (int i = 0; i < numOfEntries - 1 && i < 10; i++) {
+            output += array[i] + ", ";
+        }
+
+        output += "...]";
+
+        return output;
+    }
 }

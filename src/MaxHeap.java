@@ -228,10 +228,21 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Represents the heap as a string.
+     * @return The string representation of the heap
      */
     @Override
     public String toString() {
+        checkInitialization();
         return heap.toString();
+    }
+
+    /**
+     * Returns a preview of the first 10 items of the heap
+     * @return The string preview of the heap
+     */
+    public String preview(){
+        checkInitialization();
+        return heap.preview();
     }
 
     /**
@@ -275,7 +286,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      *
      * @return the heap's largest item.
      */
-    public T removeMax() {
+    public T remove() {
         checkInitialization();
         T root = null;
         if (!isEmpty()) {
@@ -285,6 +296,16 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             reheap(1);
         }
         return root;
+    }
+
+    /**
+     * Removes n items from the heap
+     * @param n the number of times to call `remove` on this heap
+     */
+    public void remove(int n){
+        for(int i = 0; i < n; i++){
+            this.remove();
+        }
     }
 
     /**
