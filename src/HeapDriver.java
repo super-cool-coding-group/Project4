@@ -66,7 +66,7 @@ public class HeapDriver {
     }
 
     /**
-     * 
+     *
      * @param file
      * @return
      * @throws FileNotFoundException
@@ -86,12 +86,12 @@ public class HeapDriver {
     }
 
     /**
-     * 
+     *
      * @param fileArray
      * @throws FileNotFoundException
      */
     public void writeFile(Integer[] fileArray) throws FileNotFoundException {
-        PrintWriter outputFile = new PrintWriter("data_sorted.txt");
+        PrintWriter outputFile = new PrintWriter("output_file.txt");
 
         for (int i = 0; i < 10; i++) {
             outputFile.println(fileArray);
