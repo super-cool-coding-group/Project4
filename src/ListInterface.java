@@ -1,18 +1,22 @@
 package src;
 
 /**
- * This is the ListInterface interface which we later implement to create a ResizeableList.
+ * This is the ListInterface interface which we later implement to create a
+ * ResizeableList.
  *
- * This interface contains definitions for various methods that are integral for the existence
+ * This interface contains definitions for various methods that are integral for
+ * the existence
  * of any list (resizeable or not).
  *
- * These methods allow for functionalities such as adding, removing, swapping, setting/getting elements, counting elements, clearing,
+ * These methods allow for functionalities such as adding, removing, swapping,
+ * setting/getting elements, counting elements, clearing,
  * and many checkers (such as contains, isEmpty, isFull).
  *
  * Each of these methods is documented separately.
  *
  * @author George Matta
- * @version 1.0
+ * @author Pierlorenzo Peruzzo
+ * @version 1.1
  */
 public interface ListInterface<T> {
 
@@ -27,9 +31,11 @@ public interface ListInterface<T> {
     /**
      * Adds an entry to a specified index.
      *
-     * This would delegate to the add(int, T) method, adding the entry at a specified and unchanging index.
+     * This would delegate to the add(int, T) method, adding the entry at a
+     * specified and unchanging index.
      *
-     * In most cases, this index would be the end of the list, but it can also be the front of the list (or any index for that matter)
+     * In most cases, this index would be the end of the list, but it can also be
+     * the front of the list (or any index for that matter)
      *
      * @param entry The entry we want to add to the list
      */
@@ -46,9 +52,11 @@ public interface ListInterface<T> {
     /**
      * Removes an element from the list from a specified index.
      *
-     * This delegates to the remove(int, T) method, removing an entry from a specified index.
+     * This delegates to the remove(int, T) method, removing an entry from a
+     * specified index.
      *
-     * In most cases, this index would be the end of the list, but it can also be the front of the list (or any index for that matter)
+     * In most cases, this index would be the end of the list, but it can also be
+     * the front of the list (or any index for that matter)
      *
      * @return A generic-type object of the item removed from the list
      */
@@ -57,7 +65,8 @@ public interface ListInterface<T> {
     /**
      * Sets an element at an index to be the entry.
      *
-     * Unlike add, this method does not increase the total number of entries of the list. It only replaces an element.
+     * Unlike add, this method does not increase the total number of entries of the
+     * list. It only replaces an element.
      *
      * @param index The index of the element we want to replace.
      * @param entry The entry we want to replace the element with.
@@ -76,7 +85,7 @@ public interface ListInterface<T> {
     /**
      * Swaps two elements at two indices.
      *
-     * @param firstIndex The index of the first element to be swapped.
+     * @param firstIndex  The index of the first element to be swapped.
      * @param secondIndex The index of the second element to be swapped.
      */
     public void swap(int firstIndex, int secondIndex);
@@ -106,14 +115,16 @@ public interface ListInterface<T> {
     public int getIndexOf(T entry);
 
     /**
-     * Gets the capacity of the list. This is how many elements can be added to the list (without any resizing).
+     * Gets the capacity of the list. This is how many elements can be added to the
+     * list (without any resizing).
      *
      * @return The capacity of the list.
      */
     public int getCapacity();
 
     /**
-     * Gets the number of entries of a list. This is how many elements have been added to the list.
+     * Gets the number of entries of a list. This is how many elements have been
+     * added to the list.
      *
      * @return The number of entries in the list.
      */
@@ -129,7 +140,8 @@ public interface ListInterface<T> {
     /**
      * Checks if we have added 'capacity' number of elements
      *
-     * @return true if the number of entries is the same as the capacity, false if isn't.
+     * @return true if the number of entries is the same as the capacity, false if
+     *         isn't.
      */
     public boolean isFull();
 
@@ -144,5 +156,12 @@ public interface ListInterface<T> {
      * @return An array of generic-type objects
      */
     public T[] getArray();
+
+    /**
+     * Gets the number of the entries in the List
+     *
+     * @return The number of entries.
+     */
+    public int count();
 
 }

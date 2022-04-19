@@ -1,26 +1,29 @@
 package src;
 
 /**
- * This is the ResizeableListDriver class that tests basic functionality of the ResizeableList class.
+ * This is the ResizeableListDriver class that tests basic functionality of the
+ * ResizeableList class.
  *
- * These functionalities include adding, removing, swapping, setting, getting, capacity management, and numOfEntries management.
+ * These functionalities include adding, removing, swapping, setting, getting,
+ * capacity management, and numOfEntries management.
  *
  * The class only has one method: a main method.
  *
  * @author George Matta
  * @version 2.0
  */
-public class ResizeableListDriver{
+public class ResizeableListDriver {
 
     /**
      * Demos typical usage of a ResizeableList object.
      *
-     * We test different constructors with different capacities, test different additions at various indicies,
+     * We test different constructors with different capacities, test different
+     * additions at various indicies,
      * clear the list, add more to the list, remove from the list, etc.
      *
      * @param args The basic String[] args for any main method in Java.
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         // ResizeableList<String> negArr = new ResizeableList<>(-1);
 
@@ -35,7 +38,7 @@ public class ResizeableListDriver{
         ResizeableList<String> maxArr = new ResizeableList<>(10_000);
         System.out.println(maxArr);
 
-        //ResizeableList<String> moreMaxArr = new ResizeableList<>(10_001);
+        // ResizeableList<String> moreMaxArr = new ResizeableList<>(10_001);
 
         oneArr.add("1");
         oneArr.add("2");

@@ -3,7 +3,8 @@ package src;
 /**
  * This is the ResizeableList class that implements the ListInterface interface.
  *
- * This class implements all the methods from the interface while also adding functionality for doubling
+ * This class implements all the methods from the interface while also adding
+ * functionality for doubling
  * the capacity of the list whenever we fill the list up.
  *
  * The index of a ResizeableList object starts at 1.
@@ -11,9 +12,10 @@ package src;
  * Each method is documented separately.
  *
  * @author George Matta
- * @version 1.2
+ * @author Pierlorenzo Peruzzo
+ * @version 1.3
  */
-public class ResizeableList<T> implements ListInterface<T>{
+public class ResizeableList<T> implements ListInterface<T> {
 
     /**
      * The pure Java Array that we will be populating
@@ -23,8 +25,10 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * A field denoting the number of entries in our array.
      *
-     * This number can increase (or decrease) by more than 1 if we add an element to an index that is larger than numOfEntries + 1
-     * More info. on this can be found in the documentations for the add and remove methods.
+     * This number can increase (or decrease) by more than 1 if we add an element to
+     * an index that is larger than numOfEntries + 1
+     * More info. on this can be found in the documentations for the add and remove
+     * methods.
      */
     private int numOfEntries;
 
@@ -48,9 +52,10 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * The default constructor.
      *
-     * Creates a ResizeableList with DEFAULT_CAPACITY capacity by delegating to the ResizeableList(int) constructor
+     * Creates a ResizeableList with DEFAULT_CAPACITY capacity by delegating to the
+     * ResizeableList(int) constructor
      */
-    public ResizeableList(){
+    public ResizeableList() {
         this(DEFAULT_CAPACITY);
     }
 
@@ -61,7 +66,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      *
      * @param capacity The capacity we want the list to have.
      */
-    public ResizeableList(int capacity){
+    public ResizeableList(int capacity) {
         // Check that the capacity is within bounds
         checkCapacity(capacity);
         // Create a pure generic-type array
@@ -74,41 +79,46 @@ public class ResizeableList<T> implements ListInterface<T>{
 
     /**
      * Creates a generic-type array
+     * 
      * @param capacity The capacity we want the list to have
      * @return The array object of T generics
      */
     @SuppressWarnings("unchecked")
-    private T[] createArray(int capacity){
+    private T[] createArray(int capacity) {
         return (T[]) new Object[capacity];
     }
 
     /**
      * Throws an error if the capacity of the list is too large or too small.
-     * @throws IllegalArgumentException if the capacity is greater than the maximum or less than 1.
+     * 
+     * @throws IllegalArgumentException if the capacity is greater than the maximum
+     *                                  or less than 1.
      * @param capacity The capacity we are checking.
      */
-    private void checkCapacity(int capacity){
+    private void checkCapacity(int capacity) {
         // Default the error message and then append either "large" or "small"
         String errorMessage = "Attempted to create a list with a capacity (" + capacity + ") which is too ";
         // If it is too large
-        if (capacity > MAX_CAPACITY){
+        if (capacity > MAX_CAPACITY) {
             errorMessage += "large";
             throw new IllegalArgumentException(errorMessage);
         }
         // If it is too small
-        if (capacity < 1){
+        if (capacity < 1) {
             errorMessage += "small";
             throw new IllegalArgumentException(errorMessage);
         }
     }
 
     /**
-     * Continuously doubles the capacity while a provided index is larger than capacity.
+     * Continuously doubles the capacity while a provided index is larger than
+     * capacity.
+     * 
      * @param index The index we are checking if it is too large.
      */
-    private void ensureCapacity(int index){
+    private void ensureCapacity(int index) {
         // While the index is too large, double the capacity.
-        while(index >= array.length){
+        while (index >= array.length) {
             doubleCapacity();
         }
     }
@@ -116,11 +126,12 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Doubles the capacity of the array.
      *
-     * This method also checks the new capacity with the checkCapacity(int) method, creates
+     * This method also checks the new capacity with the checkCapacity(int) method,
+     * creates
      * an array using createArray(int), and then copies the entries of the
      * old array to the new one using copyEntries(T[]).
      */
-    private void doubleCapacity(){
+    private void doubleCapacity() {
         int newCapacity = array.length * 2;
         checkCapacity(newCapacity);
         T[] newArray = createArray(newCapacity);
@@ -129,12 +140,13 @@ public class ResizeableList<T> implements ListInterface<T>{
 
     /**
      * Copies all the entries from this array into a new array
+     * 
      * @param newArray The array to copy the entries into
      * @return The array with the copied entries
      */
-    private T[] copyEntries(T[] newArray){
+    private T[] copyEntries(T[] newArray) {
         // Loop through each item in the old array
-        for(int i = 0; i < numOfEntries; i++){
+        for (int i = 0; i < numOfEntries; i++) {
             // Set the element in the new array
             newArray[i] = array[i];
         }
@@ -143,11 +155,14 @@ public class ResizeableList<T> implements ListInterface<T>{
     }
 
     /**
-     * Checks the integrity of the ResizeableList to make sure the constructor was called.
-     * @throws SecurityException if the list object was corrupted in some way or the constructor wasn't run properly.
+     * Checks the integrity of the ResizeableList to make sure the constructor was
+     * called.
+     * 
+     * @throws SecurityException if the list object was corrupted in some way or the
+     *                           constructor wasn't run properly.
      */
-    private void checkIntegrity(){
-        if(!integrityOk){
+    private void checkIntegrity() {
+        if (!integrityOk) {
             throw new SecurityException("ResizeableList object is corrupt or was not initialized properly.");
         }
     }
@@ -155,41 +170,48 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Checks if a provided index is within the range of the list [1-numOfEntries]
      *
-     * @throws IndexOutOfBoundsException if the index is not in the range [1-numOfEntries]
+     * @throws IndexOutOfBoundsException if the index is not in the range
+     *                                   [1-numOfEntries]
      * @param index The index we are checking.
      */
-    private void checkIndexInRange(int index){
-        if(index < 1 || index > numOfEntries){
+    private void checkIndexInRange(int index) {
+        if (index < 1 || index > numOfEntries) {
             throw new IndexOutOfBoundsException("The index provided (" +
-                                                index + ") does not fall within " +
-                                                "the range of the array [1-" +
-                                                numOfEntries + "].");
+                    index + ") does not fall within " +
+                    "the range of the array [1-" +
+                    numOfEntries + "].");
         }
     }
 
     /**
      * Adds an entry to the list given an index such that arr[index] == entry.
      *
-     * Since we are in a list, we want to maintain the order of the elements, so we employ the moveEntriesForward(int) method.
+     * Since we are in a list, we want to maintain the order of the elements, so we
+     * employ the moveEntriesForward(int) method.
      * We call this method to create a space for us to fit the entry into.
      *
-     * We also need to maintain the numOfEntries field, so we increase it (by at least 1).
-     * In special cases where the index is larger than the numOfEntries by a factor of more than 1, we increase
+     * We also need to maintain the numOfEntries field, so we increase it (by at
+     * least 1).
+     * In special cases where the index is larger than the numOfEntries by a factor
+     * of more than 1, we increase
      * the number of entries more.
-     * The formula to calculate how much we are increasing the numOfEntries field by is index - numOfEntries.
-     * So whenever we add an element, we increase the numOfEntries by a factor of Math.max(1, index-numOfEntries).
+     * The formula to calculate how much we are increasing the numOfEntries field by
+     * is index - numOfEntries.
+     * So whenever we add an element, we increase the numOfEntries by a factor of
+     * Math.max(1, index-numOfEntries).
      *
      * @param index The index we want to add the entry to.
      * @param entry The element we want to add.
      */
     @Override
-    public void add(int index, T entry){
+    public void add(int index, T entry) {
         // Make all our checks and ensure that we have the required capacity.
         checkIntegrity();
         ensureCapacity(index);
 
-        // If we are adding to anywhere other than the end of the list, we need to make room for the element
-        if(index <= numOfEntries){
+        // If we are adding to anywhere other than the end of the list, we need to make
+        // room for the element
+        if (index <= numOfEntries) {
             moveEntriesForward(index);
         }
 
@@ -207,7 +229,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @param entry The entry we want to add to the end of the list.
      */
     @Override
-    public void add(T entry){
+    public void add(T entry) {
         // Add the element to the end of the list
         add(numOfEntries + 1, entry);
     }
@@ -215,9 +237,11 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Removes an element from the list given an index.
      *
-     * Similarly to the add method, we use the moveEntriesBack(int) method to maintain the order of the list.
+     * Similarly to the add method, we use the moveEntriesBack(int) method to
+     * maintain the order of the list.
      *
-     * Further, we decrease the number of entries by 1, and then continue to decrement the number of entries for
+     * Further, we decrease the number of entries by 1, and then continue to
+     * decrement the number of entries for
      * each trailing "null" entry in our list.
      *
      * For example:
@@ -229,7 +253,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The removed element.
      */
     @Override
-    public T remove(int index){
+    public T remove(int index) {
         // Sanitize input
         checkIntegrity();
         checkIndexInRange(index);
@@ -240,7 +264,8 @@ public class ResizeableList<T> implements ListInterface<T>{
         // We are definitely removing one entry
         numOfEntries--;
         // We also remove an entry for every trailing null
-        for( ; numOfEntries != 0 && array[numOfEntries - 1] == null; numOfEntries--);
+        for (; numOfEntries != 0 && array[numOfEntries - 1] == null; numOfEntries--)
+            ;
 
         // Return the element we removed
         return removed;
@@ -252,7 +277,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The last element from the list (the removed element).
      */
     @Override
-    public T remove(){
+    public T remove() {
         // Check the integrity of the object
         checkIntegrity();
         // Remove the item at the last index
@@ -262,16 +287,17 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Removes an entry from a list by moving all proceeding elements back an index.
      *
-     * This method serves to actually remove the element from the list, and it maintains the order of the elements.
+     * This method serves to actually remove the element from the list, and it
+     * maintains the order of the elements.
      *
      * @param index The index of the element we want to remove
      * @return The removed element
      */
-    private T moveEntriesBack(int index){
+    private T moveEntriesBack(int index) {
         // Store the removed element
         T removed = array[index - 1];
         // Start at the index and continuously move the next element back once.
-        for(int i = index; i <= numOfEntries; i++){
+        for (int i = index; i <= numOfEntries; i++) {
             array[i - 1] = array[i];
         }
         // Return the removed element
@@ -285,11 +311,12 @@ public class ResizeableList<T> implements ListInterface<T>{
      *
      * @param index The index of the element we want to make null
      */
-    private void moveEntriesForward(int index){
+    private void moveEntriesForward(int index) {
         // Make sure we have enough room
         ensureCapacity(numOfEntries + 1);
-        // Start at 1 less than the end of the list and continuously set the next element to the current element
-        for(int i = numOfEntries; i >= index - 1; i--){
+        // Start at 1 less than the end of the list and continuously set the next
+        // element to the current element
+        for (int i = numOfEntries; i >= index - 1; i--) {
             array[i + 1] = array[i];
         }
     }
@@ -297,14 +324,15 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Sets an element at a specified index to the entry.
      *
-     * This method does not change the number of entries, it simply replaces an element with another element.
+     * This method does not change the number of entries, it simply replaces an
+     * element with another element.
      *
      * @param index The index of the element we want to replace.
      * @param entry The entry we want to replace the element with.
      * @return The element we 'removed' from the list
      */
     @Override
-    public T set(int index, T entry){
+    public T set(int index, T entry) {
         // Sanitize input
         checkIntegrity();
         checkIndexInRange(index);
@@ -325,7 +353,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The element we got from the list.
      */
     @Override
-    public T get(int index){
+    public T get(int index) {
         // Sanitize input
         checkIntegrity();
         checkIndexInRange(index);
@@ -337,11 +365,11 @@ public class ResizeableList<T> implements ListInterface<T>{
     /**
      * Swaps two elements in the list given two indicies.
      *
-     * @param firstIndex The index of the first element we're swapping
+     * @param firstIndex  The index of the first element we're swapping
      * @param secondIndex The index of the second element we're swapping
      */
     @Override
-    public void swap(int firstIndex, int secondIndex){
+    public void swap(int firstIndex, int secondIndex) {
         // Sanitize input
         checkIntegrity();
         checkIndexInRange(firstIndex);
@@ -360,20 +388,20 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The number of times the element is present.
      */
     @Override
-    public int getFreqOf(T entry){
+    public int getFreqOf(T entry) {
         // Check the integrity of the object
         checkIntegrity();
 
         // Initialize the counter variable
         int count = 0;
         // Loop through the array
-        for(int i = 0; i < numOfEntries; i++){
+        for (int i = 0; i < numOfEntries; i++) {
             // If we are at a null entry, skip it
-            if(array[i] == null){
+            if (array[i] == null) {
                 continue;
             }
             // If we found the element
-            if(array[i].equals(entry)){
+            if (array[i].equals(entry)) {
                 // Increase the count
                 count++;
             }
@@ -390,7 +418,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return true if the element is in the list, false if it isn't.
      */
     @Override
-    public boolean contains(T entry){
+    public boolean contains(T entry) {
         // Check the integrity of the object
         checkIntegrity();
         // If the entry is in the array, return true
@@ -404,12 +432,12 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The index of the entry.
      */
     @Override
-    public int getIndexOf(T entry){
+    public int getIndexOf(T entry) {
 
         // Loop through the array
-        for(int i = 0; i < numOfEntries; i++){
+        for (int i = 0; i < numOfEntries; i++) {
             // If we find the element
-            if(array[i].equals(entry)){
+            if (array[i].equals(entry)) {
                 // Return the indes
                 return i;
             }
@@ -426,7 +454,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The capacity of the list.
      */
     @Override
-    public int getCapacity(){
+    public int getCapacity() {
         // Check the integrity of the object
         checkIntegrity();
         // Return the capacity
@@ -440,7 +468,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The number of entries of the list.
      */
     @Override
-    public int getNumEntries(){
+    public int getNumEntries() {
         // Check the integrity of the object
         checkIntegrity();
         // Return the number of entries
@@ -454,7 +482,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return true if the list is empty, false if it isn't.
      */
     @Override
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         // Check the integrity of the object
         checkIntegrity();
         // Return whether or not the list is empty
@@ -463,13 +491,15 @@ public class ResizeableList<T> implements ListInterface<T>{
 
     /**
      * Checks if the list is full
-     * We do this by checking if the number of entries is greater than or equal to one less than the capacity.
-     * (In Java, we can't add an element to index array.length using the native arr[ind])
+     * We do this by checking if the number of entries is greater than or equal to
+     * one less than the capacity.
+     * (In Java, we can't add an element to index array.length using the native
+     * arr[ind])
      *
      * @return true if the list is full, false if it isn't
      */
     @Override
-    public boolean isFull(){
+    public boolean isFull() {
         // Check the integrity of the object
         checkIntegrity();
         // Return whether or not the list is full
@@ -478,14 +508,15 @@ public class ResizeableList<T> implements ListInterface<T>{
 
     /**
      * Clears a list of all its entries.
-     * We do this by continuously removing the last entry (by calling remove()) until the list is empty (isEmpty()).
+     * We do this by continuously removing the last entry (by calling remove())
+     * until the list is empty (isEmpty()).
      */
     @Override
-    public void clear(){
+    public void clear() {
         // Check the integrity of the object
         checkIntegrity();
         // While the list isn't empty
-        while(!isEmpty()){
+        while (!isEmpty()) {
             // Remove the last element
             remove();
         }
@@ -498,7 +529,7 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return A generic-type array of the elements in the list (this.array)
      */
     @Override
-    public T[] getArray(){
+    public T[] getArray() {
         checkIntegrity();
         return array;
     }
@@ -512,15 +543,15 @@ public class ResizeableList<T> implements ListInterface<T>{
      * @return The String representation of the ResizeableList object
      */
     @Override
-    public String toString(){
+    public String toString() {
         checkIntegrity();
 
         String output = "[";
-        for(int i = 0; i < numOfEntries - 1; i++){
+        for (int i = 0; i < numOfEntries - 1; i++) {
             output += array[i] + ", ";
         }
 
-        if(numOfEntries != 0){
+        if (numOfEntries != 0) {
             output += array[numOfEntries - 1];
         }
         output += "]";
@@ -529,6 +560,11 @@ public class ResizeableList<T> implements ListInterface<T>{
         output += "\nNumEntries: " + numOfEntries;
 
         return output;
+    }
+
+    @Override
+    public int count() {
+        return numOfEntries;
     }
 
 }

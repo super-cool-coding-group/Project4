@@ -1,13 +1,17 @@
 package src;
 
 /**
- * This is the BinaryHeapInterface. It hosts definitions for methods integral for the creation of any heap.
+ * This is the BinaryHeapInterface. It hosts definitions for methods integral
+ * for the creation of any heap.
  *
- * Heaps that implement this interface can be a Max Heap, Min Heap, or any other special type of tree that places
+ * Heaps that implement this interface can be a Max Heap, Min Heap, or any other
+ * special type of tree that places
  * a restriction on where entries can be added.
  *
- * We achieve this by using the canAdd(int, T) method which returns a boolean denoting whether or not an entry can be
- * added at that position. So, for a maxHeap, we would check if the entry is less than its parent.
+ * We achieve this by using the canAdd(int, T) method which returns a boolean
+ * denoting whether or not an entry can be
+ * added at that position. So, for a maxHeap, we would check if the entry is
+ * less than its parent.
  *
  * We also define that the generic type T is comparable.
  *
@@ -27,16 +31,16 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
     public void add(T entry);
 
     // /**
-    //  * Adds an entry to the Heap given an index
-    //  *
-    //  * @param entry The entry we want to add to the Heap
-    //  * @param index The index we want to add the entry to
-    //  */
+    // * Adds an entry to the Heap given an index
+    // *
+    // * @param entry The entry we want to add to the Heap
+    // * @param index The index we want to add the entry to
+    // */
     // public void add(int index, T entry);
 
     /**
      * Checks if we can add an entry to a given index.
-
+     * 
      * @param index The index we want to place the entry at.
      * @param entry The entry we want to add
      * @return true if we can add the entry, false if we cannot
@@ -55,7 +59,8 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
      * Gets the index of a child given the index of the parent.
      *
      * @param parentIndex The index of a parent node.
-     * @return The index of the first child of the parent (add 1 for the second child).
+     * @return The index of the first child of the parent (add 1 for the second
+     *         child).
      */
     public int getChildIndex(int parentIndex);
 
@@ -68,6 +73,7 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
 
     /**
      * Gets the size of the heap (how many entries are in the heap)
+     * 
      * @return The size of the heap
      */
     public int getSize();
@@ -76,9 +82,4 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
      * Clears a heap of all its entries
      */
     public void clear();
-
-    // public T removeRoot();
-
-    // public T getRoot();
-
 }

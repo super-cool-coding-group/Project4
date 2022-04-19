@@ -128,13 +128,11 @@ public class MaxHeap<T> implements BinaryHeapInterface<T>{
 
     @Override
     public boolean add(T data) {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean add(BinaryHeapInterface<T> node) {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -150,14 +148,11 @@ public class MaxHeap<T> implements BinaryHeapInterface<T>{
 
     @Override
     public BinaryHeapInterface<T> remove() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void swap(BinaryHeapInterface<T> primaryNode, BinaryHeapInterface<T> secondaryNode) {
-        // TODO Auto-generated method stub
-
     }
 
 }
