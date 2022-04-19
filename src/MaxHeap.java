@@ -26,6 +26,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     private ResizeableList<T> heap;
     private boolean initialized = false;
+    private int numSwaps;
 
     // #endregion
 
@@ -40,7 +41,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Initialize the ReordableList with a specific capacity.
-     * 
+     *
      * @param initialCapacity the initial capacity for the ReordableList.
      */
     public MaxHeap(int initialCapacity) {
@@ -49,11 +50,12 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
         heap = new ResizeableList<T>(initialCapacity);
         initialized = true;
+        numSwaps = 0;
     }
 
     /**
      * Constructor that creates a heap from an array.
-     * 
+     *
      * @param items the array used to create the heap.
      */
     public MaxHeap(T[] items) {
@@ -64,7 +66,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     /**
      * Constructor that creates an heap from an array using the optimal method or
      * not.
-     * 
+     *
      * @param items   the array used to create the heap.
      * @param optimal if the constructor should use the optimal method to create the
      *                heap.
@@ -111,7 +113,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Checks if we can add an entry to a given index.
-     * 
+     *
      * @param index The index we want to place the entry at.
      * @param entry The entry we want to add
      * @return true if we can add the entry, false if we cannot
@@ -184,6 +186,8 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         while (parentIndex > 0 && canAdd(parentIndex, newEntry)) {
             // Swap the entries
             heap.swap(entryIndex, parentIndex);
+            this.numSwaps++;
+
             // Recalculate the indices
             entryIndex = parentIndex;
             parentIndex = getParentIndex(entryIndex);
@@ -204,7 +208,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Gets the size of the heap (how many entries are in the heap)
-     * 
+     *
      * @return The size of the heap
      */
     @Override
@@ -232,7 +236,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Get the root item in the heap.
-     * 
+     *
      * @return the root item.
      */
     public T getRoot() {
@@ -244,8 +248,18 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     }
 
     /**
+     * Get the number of swaps it took to create the heap.
+     *
+     * @return the number of swaps.
+     */
+    public int getNumSwaps() {
+        checkInitialization();
+        return numSwaps;
+    }
+
+    /**
      * Get the max item in the heap.
-     * 
+     *
      * @return the max item.
      */
     public T getMax() {
@@ -258,7 +272,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Removes and returns the heap's largest item.
-     * 
+     *
      * @return the heap's largest item.
      */
     public T removeMax() {
@@ -275,7 +289,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Turns a semiheap into a heap.
-     * 
+     *
      * @param rootIndex the index of the root.
      */
     private void reheap(int rootIndex) {
@@ -308,7 +322,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
 
     /**
      * Heapify a heap represented as an array
-     * 
+     *
      * @param i the initial node.
      */
     private void heapify(int i) {

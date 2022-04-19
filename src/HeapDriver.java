@@ -19,7 +19,8 @@ import java.util.Scanner;
  */
 public class HeapDriver {
 
-    private static final String FILE_NAME = "data_random.txt";
+    private static final String RANDOM_DATA_FILE = "src/data_random.txt";
+    private static final String SORTED_DATA_FILE = "src/data_sorted.txt";
 
     /**
      * Demos typical usage of a MaxHeap object.
@@ -54,13 +55,55 @@ public class HeapDriver {
         System.out.println();
 
         System.out.println("*** TESTING READ FROM FILE ***");
-        try {
-            Integer[] fileData = readFile(FILE_NAME);
-            MaxHeap<Integer> h2 = new MaxHeap<>(fileData, true);
-            System.out.println(h2);
 
+        Integer[] randomData = null;
+        Integer[] sortedData = null;
+        try {
+            randomData = readFile(RANDOM_DATA_FILE);
         } catch (FileNotFoundException e) {
-            System.out.println("File " + FILE_NAME + " not found.");
+            System.out.println("File " + RANDOM_DATA_FILE + " not found.");
+        }
+        try {
+            sortedData = readFile(SORTED_DATA_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("File " + SORTED_DATA_FILE + " not found.");
+        }
+
+        if(randomData != null){
+            System.out.println();
+
+            System.out.println("*** TESTING NON-OPTIMAL METHOD ON RANDOM DATA ***");
+
+            MaxHeap<Integer> nonOptRand = new MaxHeap<>(randomData);
+            System.out.println(nonOptRand);
+            System.out.println("NumSwaps: " + nonOptRand.getNumSwaps());
+
+            System.out.println();
+
+            System.out.println("*** TESTING OPTIMAL METHOD ON RANDOM DATA ***");
+
+            MaxHeap<Integer> optRand = new MaxHeap<>(randomData, true);
+            System.out.println(optRand);
+            System.out.println("NumSwaps: " + optRand.getNumSwaps());
+        }
+
+        if(sortedData != null){
+            System.out.println();
+
+            System.out.println("*** TESTING NON-OPTIMAL METHOD ON SORTED DATA ***");
+
+            MaxHeap<Integer> nonOptSorted = new MaxHeap<>(sortedData);
+            System.out.println(nonOptSorted);
+            System.out.println("NumSwaps: " + nonOptSorted.getNumSwaps());
+
+
+            System.out.println();
+
+            System.out.println("*** TESTING OPTIMAL METHOD ON SORTED DATA ***");
+
+            MaxHeap<Integer> optSorted = new MaxHeap<>(sortedData, true);
+            System.out.println(optSorted);
+            System.out.println("NumSwaps: " + optSorted.getNumSwaps());
         }
 
     }
@@ -77,7 +120,7 @@ public class HeapDriver {
 
         // Inputs file data into array
         Integer[] fileArray = new Integer[100];
-        for (int i = 1; i <= 100; i++) {
+        for (int i = 0; i < 100; i++) {
             fileArray[i] = inputFile.nextInt();
         }
         inputFile.close();

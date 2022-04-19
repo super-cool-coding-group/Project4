@@ -40,7 +40,7 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
 
     /**
      * Checks if we can add an entry to a given index.
-     * 
+     *
      * @param index The index we want to place the entry at.
      * @param entry The entry we want to add
      * @return true if we can add the entry, false if we cannot
@@ -73,7 +73,7 @@ public interface BinaryHeapInterface<T extends Comparable<? super T>> {
 
     /**
      * Gets the size of the heap (how many entries are in the heap)
-     * 
+     *
      * @return The size of the heap
      */
     public int getSize();
