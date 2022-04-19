@@ -16,21 +16,25 @@ package src;
  */
 public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInterface<T> {
 
-    // #region Const
-
+    /**
+     * The default/minimum capacity of any MaxHeap. For this implementation, the default capacity is 25.
+     */
     private static final int DEFAULT_CAPACITY = 25;
 
-    // #endregion
-
-    // #region Private Fields
-
+    /**
+     * The ResizeableList of the heap we will be populating.
+     */
     private ResizeableList<T> heap;
-    private boolean initialized = false;
+
+    /**
+     * The number of swaps it took to create this heap.
+     */
     private int numSwaps;
 
-    // #endregion
-
-    // #region Constructors
+    /**
+     * A boolean that keeps track of whether or not the constructor was properly called
+     */
+    private boolean initialized = false;
 
     /**
      * Default Constructor.
@@ -40,9 +44,9 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     }
 
     /**
-     * Initialize the ReordableList with a specific capacity.
+     * Initialize the Heap with a specific capacity.
      *
-     * @param initialCapacity the initial capacity for the ReordableList.
+     * @param initialCapacity the initial capacity for the Heap.
      */
     public MaxHeap(int initialCapacity) {
         if (initialCapacity < DEFAULT_CAPACITY)
@@ -89,14 +93,11 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             heap.add(items[i]);
         }
 
+        // Begin heapifying at the center item
         for (int i = (items.length / 2) - 1; i >= 0; i--) {
             heapify(i);
         }
     }
-
-    // #endregion
-
-    // #region Security Check
 
     /**
      * Checks if the heap is initialized.
@@ -106,10 +107,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             throw new SecurityException("MaxHeap object is corrupt or was not initialized properly.");
         }
     }
-
-    // #endregion
-
-    // #region Implement BinaryHeapInterface
 
     /**
      * Checks if we can add an entry to a given index.
@@ -122,6 +119,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     public boolean canAdd(int index, T entry) {
         checkInitialization();
 
+        // Check if the entry we want to add is larger than the item at the index we want to place the entry at
         return entry.compareTo(heap.get(index)) > 0;
     }
 
@@ -129,20 +127,23 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      * Gets the index of a parent given the index of the child.
      *
      * @param childIndex The index of a child node.
-     * @return THe index of the child's parent.
+     * @return The index of the child's parent, -1 if there is no parent.
      */
     @Override
     public int getParentIndex(int childIndex) {
         checkInitialization();
 
+        // If the index is not an even number, we decrement it
         if (childIndex % 2 != 0) {
             childIndex--;
         }
 
+        // If the index doesn't have a parent (because it's at the start of the heap) return -1
         if (childIndex <= 1) {
             return -1;
         }
 
+        // Return half the childIndex (which is the parentIndex)
         return childIndex / 2;
     }
 
@@ -151,18 +152,21 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      *
      * @param parentIndex The index of a parent node.
      * @return The index of the first child of the parent (add 1 for the second
-     *         child).
+     *         child), -1 if there is no child.
      */
     @Override
     public int getChildIndex(int parentIndex) {
         checkInitialization();
 
+        // Multiply the parentIndex by 2
         int childIndex = parentIndex * 2;
 
+        // if we're larger than the number of entries, then there's no child
         if (childIndex >= heap.getNumEntries()) {
             return -1;
         }
 
+        // Return the index
         return childIndex;
     }
 
@@ -246,19 +250,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     }
 
     /**
-     * Get the root item in the heap.
-     *
-     * @return the root item.
-     */
-    public T getRoot() {
-        checkInitialization();
-        T root = null;
-        if (!isEmpty())
-            root = heap.get(1);
-        return root;
-    }
-
-    /**
      * Get the number of swaps it took to create the heap.
      *
      * @return the number of swaps.
@@ -275,10 +266,14 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      */
     public T getMax() {
         checkInitialization();
-        T root = null;
-        if (!isEmpty())
-            root = heap.get(1);
-        return root;
+
+        // Check if we have a heap
+        if(isEmpty()){
+            return null;
+        }
+
+        // Return the first item in he heap
+        return heap.get(1);
     }
 
     /**
@@ -288,14 +283,25 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      */
     public T remove() {
         checkInitialization();
-        T root = null;
-        if (!isEmpty()) {
-            root = heap.get(1);
-            heap.set(1, heap.get(heap.getNumEntries()));
-            heap.remove(heap.getNumEntries());
-            reheap(1);
+
+        if(isEmpty()){
+            return null;
         }
-        return root;
+
+        // Get the max item of the heap
+        T max = heap.get(1);
+
+        // Reset the first index of the heap to be the max item of the heap
+        heap.set(1, heap.get(heap.getNumEntries()));
+
+        // Remove the last item of the heap
+        heap.remove(heap.getNumEntries());
+
+        // Reheap the heap to make sure we maintain its heap-ness
+        reheap(1);
+
+        // Return the previously max item of the heap
+        return max;
     }
 
     /**
@@ -303,7 +309,9 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      * @param n the number of times to call `remove` on this heap
      */
     public void remove(int n){
+        // Loop through until n
         for(int i = 0; i < n; i++){
+            // Run the remove method
             this.remove();
         }
     }
@@ -337,10 +345,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         heap.set(rootIndex, orphan);
     }
 
-    // #endregion
-
-    // #region Other methods
-
     /**
      * Heapify a heap represented as an array
      *
@@ -371,5 +375,4 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         }
     }
 
-    // #endregion
 }

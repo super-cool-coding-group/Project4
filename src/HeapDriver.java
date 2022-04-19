@@ -19,8 +19,19 @@ import java.util.Scanner;
  */
 public class HeapDriver {
 
+    /**
+     * The name of the file containing the random data
+     */
     private static final String RANDOM_DATA_FILE = "src/data_random.txt";
+
+    /**
+     * The name of the file containing the sorted data
+     */
     private static final String SORTED_DATA_FILE = "src/data_sorted.txt";
+
+    /**
+     * The name of the file in which we will output our final data
+     */
     private static final String OUTPUT_DATA_FILE = "src/output_file.txt";
 
     /**
@@ -57,19 +68,25 @@ public class HeapDriver {
 
         System.out.println("*** TESTING READ FROM FILE ***\n");
 
+        // Initialize Integer arrays for our random and sorted data files
         Integer[] randomData = null;
         Integer[] sortedData = null;
+
+        // Try to read our random data file
         try {
             randomData = readFile(RANDOM_DATA_FILE);
         } catch (FileNotFoundException e) {
             System.out.println("File " + RANDOM_DATA_FILE + " not found.");
         }
+
+        // Try to read our sorted data file
         try {
             sortedData = readFile(SORTED_DATA_FILE);
         } catch (FileNotFoundException e) {
             System.out.println("File " + SORTED_DATA_FILE + " not found.");
         }
 
+        // Try to write to our output data file
         try{
             writeFile(randomData, sortedData, OUTPUT_DATA_FILE);
         } catch (FileNotFoundException e) {
@@ -78,10 +95,13 @@ public class HeapDriver {
     }
 
     /**
+     * Reads a file given a filename in this path and creates/returns an Integer[] of the numbers in that file.
      *
-     * @param file
-     * @return
-     * @throws FileNotFoundException
+     * The file passed through must contain all integers, one on each line.
+     *
+     * @param file The name of the file we want to read
+     * @return An Integer[] of the ints in the file
+     * @throws FileNotFoundException If the file passed is not found in the path
      */
     private static Integer[] readFile(String file) throws FileNotFoundException {
         File thisFile = new File(file);
@@ -98,11 +118,13 @@ public class HeapDriver {
     }
 
     /**
+     * Writes to our output file the heaps created by random and sorted data, the number of swaps for various creation methods,
+     * and the heap after 10 removals
      *
-     * @param randomData
-     * @param sortedData
-     * @param outputFile
-     * @throws FileNotFoundException
+     * @param randomData An Integer[] of random ints
+     * @param sortedData An Integer[] of sorted ints
+     * @param outputFile The name of the file we will output to
+     * @throws FileNotFoundException If the file passed is not found in the path
      */
     private static void writeFile(Integer[] randomData, Integer[] sortedData, String outputFileName) throws FileNotFoundException {
 
