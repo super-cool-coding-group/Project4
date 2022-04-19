@@ -1,10 +1,5 @@
 package src;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
 public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInterface<T> {
 
     //#region Const
@@ -17,9 +12,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     //#region Private Fields
 
     private ResizeableList<T> heap;
-    //private int lastIndex;
     private boolean initialized = false;
-    private int[] fileArray;
 
     //#endregion
 
@@ -61,13 +54,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         // If we want the optimal method:
 
     }
-
-    // Initializes MaxHeap using data from text file (first 100 integers only)
-    public MaxHeap(String file) throws FileNotFoundException{
-        // Call other MaxHeap constructor
-        this(readFile(file));
-    }
-
 
     //#endregion
 
@@ -218,41 +204,6 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
         heap.set(rootIndex, orphan);
     }
 
-
     //#endregion
 
-    //#region Other methods
-
-    private static int[] readFile(String file) throws FileNotFoundException{
-        File thisFile = new File(file);
-        Scanner inputFile = new Scanner(thisFile);
-
-        // Inputs file data into array
-        int[] fileArray = new int[100];
-        for(int i = 1; i <= 100; i++){
-            fileArray[i] = inputFile.nextInt();
-        }
-        inputFile.close();
-
-        return fileArray;
-    }
-
-    public void writeFile() throws FileNotFoundException{
-        PrintWriter outputFile = new PrintWriter("data_sorted.txt");
-
-        for(int i = 0; i < 10; i++){
-            outputFile.println(fileArray);
-        } 
-
-        outputFile.close();
-
-    }
-
-    @Override
-    public ResizeableList<Integer> removeRoot() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    //#endregion
 }
