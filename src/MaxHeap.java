@@ -322,26 +322,36 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      * @param rootIndex the index of the root.
      */
     private void reheap(int rootIndex) {
+        // Set conditions for while loop
         boolean done = false;
         T orphan = heap.get(rootIndex);
         int leftChildIndex = this.getChildIndex(1);
+
+        // Compare left and right children and find the larger child
         while (!done && (leftChildIndex <= heap.getNumEntries())) {
+            // Initialize larger and right child index
             int largerChildIndex = leftChildIndex;
             int rightChildIndex = leftChildIndex + 1;
+
+            // Check if right child is larger than left child, if yes set right index as larger
             if ((rightChildIndex <= heap.getNumEntries()) &&
                     heap.get(rightChildIndex).compareTo(heap.get(largerChildIndex)) > 0) {
                 largerChildIndex = rightChildIndex;
             }
 
+            // Check if root is less than larger child, if yes set root as larger 
             if (orphan.compareTo(heap.get(largerChildIndex)) < 0) {
                 heap.set(rootIndex, heap.get(largerChildIndex));
                 rootIndex = largerChildIndex;
                 leftChildIndex = 2 * rootIndex;
             }
 
+            // If root is greater than larger child, end loop
             else
                 done = true;
         }
+
+        // Set current root index to original orphan
         heap.set(rootIndex, orphan);
     }
 
