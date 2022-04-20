@@ -1,7 +1,7 @@
 package src;
 
 /**
- * This is the ResizeableListDriver class that tests basic functionality of the
+ * The ResizeableListDriver class that tests basic functionality of the
  * ResizeableList class.
  *
  * These functionalities include adding, removing, swapping, setting, getting,

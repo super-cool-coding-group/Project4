@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
- * This is the HeapDriver class that tests basic functionality of the MaxHeap
+ * The HeapDriver class that tests basic functionality of the MaxHeap
  * class.
  *
  * These functionalities include the creation of a heap with and without the
@@ -121,9 +121,9 @@ public class HeapDriver {
      * Writes to our output file the heaps created by random and sorted data, the number of swaps for various creation methods,
      * and the heap after 10 removals
      *
-     * @param randomData An Integer[] of random ints
      * @param sortedData An Integer[] of sorted ints
-     * @param outputFile The name of the file we will output to
+     * @param randomData An Integer[] of random ints
+     * @param outputFileName The name of the file we will output to
      * @throws FileNotFoundException If the file passed is not found in the path
      */
     private static void writeFile(Integer[] sortedData, Integer[] randomData, String outputFileName) throws FileNotFoundException {

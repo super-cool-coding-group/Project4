@@ -1,7 +1,7 @@
 package src;
 
 /**
- * This is the ResizeableList class that implements the ListInterface interface.
+ * The ResizeableList class that implements the ListInterface interface.
  *
  * This class implements all the methods from the interface while also adding
  * functionality for doubling

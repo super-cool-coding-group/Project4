@@ -1,8 +1,7 @@
 package src;
 
 /**
- * This is the ListInterface interface which we later implement to create a
- * ResizeableList.
+ * The ListInterface interface which we later implement to create a ResizeableList.
  *
  * This interface contains definitions for various methods that are integral for
  * the existence

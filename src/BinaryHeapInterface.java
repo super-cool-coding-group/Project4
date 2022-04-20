@@ -1,7 +1,7 @@
 package src;
 
 /**
- * This is the BinaryHeapInterface. It hosts definitions for methods integral
+ * The BinaryHeapInterface that hosts definitions for methods integral
  * for the creation of any heap.
  *
  * Heaps that implement this interface can be a Max Heap, Min Heap, or any other

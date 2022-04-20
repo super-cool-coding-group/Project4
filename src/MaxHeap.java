@@ -1,7 +1,7 @@
 package src;
 
 /**
- * This is the MaxHeap class that implements the BinaryHeapInterface interface.
+ * The MaxHeap class that implements the BinaryHeapInterface interface.
  *
  * This class implements all the methods from the interface while also adding
  * functionality for creating a max heap from an array.
