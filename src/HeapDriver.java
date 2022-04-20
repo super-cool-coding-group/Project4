@@ -15,6 +15,7 @@ import java.util.Scanner;
  *
  * @author George Matta
  * @author Pierlorenzo Peruzzo
+ * @author Angelica Arteaga
  * @version 2.0
  */
 public class HeapDriver {
