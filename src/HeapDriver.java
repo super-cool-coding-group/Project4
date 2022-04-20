@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -171,12 +172,9 @@ public class HeapDriver {
 
         System.out.println(outputString);
 
-        // PrintWriter outputFile = new PrintWriter(outputFileName);
+        PrintWriter outputFile = new PrintWriter(OUTPUT_DATA_FILE);
+        outputFile.println(outputString);
 
-        // for (int i = 0; i < 10; i++) {
-        //     outputFile.println("");
-        // }
-
-        // outputFile.close();
+        outputFile.close();
     }
 }
