@@ -88,7 +88,7 @@ public class HeapDriver {
 
         // Try to write to our output data file
         try{
-            writeFile(randomData, sortedData, OUTPUT_DATA_FILE);
+            writeFile(sortedData, randomData, OUTPUT_DATA_FILE);
         } catch (FileNotFoundException e) {
             System.out.println("File " + OUTPUT_DATA_FILE + " not found.");
         }
@@ -126,30 +126,9 @@ public class HeapDriver {
      * @param outputFile The name of the file we will output to
      * @throws FileNotFoundException If the file passed is not found in the path
      */
-    private static void writeFile(Integer[] randomData, Integer[] sortedData, String outputFileName) throws FileNotFoundException {
+    private static void writeFile(Integer[] sortedData, Integer[] randomData, String outputFileName) throws FileNotFoundException {
 
         String outputString = "";
-
-        if(randomData != null){
-            MaxHeap<Integer> nonOptRand = new MaxHeap<>(randomData);
-            MaxHeap<Integer> optRand = new MaxHeap<>(randomData, true);
-
-            outputString += "*** Heap built using RANDOM data ***\n";
-
-            outputString += "Heap built using Sequential Insertions: " + nonOptRand.preview() + "\n";
-            outputString += "Number of Swaps in the heap creation: " + nonOptRand.getNumSwaps() + "\n";
-            nonOptRand.remove(10);
-            outputString += "Heap after 10 removals: " + nonOptRand.preview() + "\n";
-
-            outputString += "\n";
-
-            outputString += "Heap built using Optimal Method: " + optRand.preview() + "\n";
-            outputString += "Number of Swaps in the heap creation: " + optRand.getNumSwaps() + "\n";
-            optRand.remove(10);
-            outputString += "Heap after 10 removals: " + optRand.preview() + "\n";
-        }
-
-        outputString += "\n";
 
         if(sortedData != null){
             MaxHeap<Integer> nonOptSorted = new MaxHeap<>(sortedData);
@@ -170,7 +149,26 @@ public class HeapDriver {
             outputString += "Heap after 10 removals: " + optSorted.preview() + "\n";
         }
 
-        System.out.println(outputString);
+        outputString += "\n";
+
+        if(randomData != null){
+            MaxHeap<Integer> nonOptRand = new MaxHeap<>(randomData);
+            MaxHeap<Integer> optRand = new MaxHeap<>(randomData, true);
+
+            outputString += "*** Heap built using RANDOM data ***\n";
+
+            outputString += "Heap built using Sequential Insertions: " + nonOptRand.preview() + "\n";
+            outputString += "Number of Swaps in the heap creation: " + nonOptRand.getNumSwaps() + "\n";
+            nonOptRand.remove(10);
+            outputString += "Heap after 10 removals: " + nonOptRand.preview() + "\n";
+
+            outputString += "\n";
+
+            outputString += "Heap built using Optimal Method: " + optRand.preview() + "\n";
+            outputString += "Number of Swaps in the heap creation: " + optRand.getNumSwaps() + "\n";
+            optRand.remove(10);
+            outputString += "Heap after 10 removals: " + optRand.preview() + "\n";
+        }
 
         PrintWriter outputFile = new PrintWriter(OUTPUT_DATA_FILE);
         outputFile.println(outputString);
