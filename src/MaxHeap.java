@@ -78,7 +78,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
     public MaxHeap(T[] items, boolean optimal) {
         this();
 
-        // If we want the non-optimal method
+        // If we want the non-optimal method. O(nlog(n))
         if (!optimal) {
             for (int i = 0; i < items.length; i++) {
                 this.add(items[i]);
@@ -86,7 +86,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
             return;
         }
 
-        // Optimize method
+        // Optimal method O(n)
 
         // Copy items to the ResizableList
         for (int i = 0; i < items.length; i++) {
@@ -339,7 +339,7 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
                 largerChildIndex = rightChildIndex;
             }
 
-            // Check if root is less than larger child, if yes set root as larger 
+            // Check if root is less than larger child, if yes set root as larger
             if (orphan.compareTo(heap.get(largerChildIndex)) < 0) {
                 heap.set(rootIndex, heap.get(largerChildIndex));
                 rootIndex = largerChildIndex;
