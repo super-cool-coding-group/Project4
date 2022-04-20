@@ -176,18 +176,18 @@ public class MaxHeap<T extends Comparable<? super T>> implements BinaryHeapInter
      * @param entry The entry we want to add to the Heap
      */
     @Override
-    public void add(T newEntry) {
+    public void add(T entry) {
         checkInitialization();
 
         // Add the entry to the last index
-        heap.add(newEntry);
+        heap.add(entry);
 
         // Set up indices for the current entry and the parent entry
         int entryIndex = heap.getNumEntries();
         int parentIndex = getParentIndex(entryIndex);
 
         // If the parent is less than the entry
-        while (parentIndex > 0 && canAdd(parentIndex, newEntry)) {
+        while (parentIndex > 0 && canAdd(parentIndex, entry)) {
             // Swap the entries
             heap.swap(entryIndex, parentIndex);
             this.numSwaps++;
